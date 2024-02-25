@@ -4,6 +4,8 @@
  * 这里编译用的clang是xcode的，位置在/usr/bin/clang
  * 当然也可以直接使用llvm的，它的安装位置在
  * /opt/homebrew/opt/llvm/bin/clang 
+ * 注意无论clang还是gcc，都是编译器，c是直接编译成机器码，不需要解释
+ * 这也是它为什么快的原因
  */
 
 int main (){
