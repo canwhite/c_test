@@ -16,7 +16,7 @@ use of c
 "C_Cpp.default.compilerPath": "/usr/bin/clang",
 "C_Cpp.default.cStandard": "c99"
 
-以上步骤完成后，你就可以开始在你的M1 Mac上通过VS Code和Xcode的clang编写C代码了。 
+以上步骤完成后，你就可以开始在你的M1 Mac上通过VS Code和clang编写C代码了。 
 
   
 ## run
