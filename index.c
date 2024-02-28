@@ -31,13 +31,13 @@ int main (){
     //基本数组 type array[size]
     int numbers[5] = {1, 2, 3, 4, 5};
 
-    //----1. *的第一个作用，声明指针变量
+    //----1. *声明指针变量
     int *ip; /* 这里*是取值符，ip就是地址 */
  
     ip = &var; /*  &为取地址符 */
  
 
-    /*----2. *的第二个作用，取出地址中的值 */
+    /*----2. *取出地址中的值 */
     printf("Value of *ip variable: %d\n", *ip );
 
 
@@ -45,7 +45,7 @@ int main (){
     int* array;
     int n, i;
     n = 5;
-    //----3、*的第三个作用动态分配内存
+    //----3、*动态分配内存
     array = (int*)malloc(n * sizeof(int));
     for (i = 0; i < n; i++) {
         array[i] = i;
@@ -58,7 +58,7 @@ int main (){
     free(array);
 
 
-    //----4、*的第四个作用，通过引用传参
+    //----4、*通过引用传参
     int value = 10;
     updateValue(&value);
     printf("After: %d\n", value);
