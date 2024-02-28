@@ -16,8 +16,6 @@ void updateValue(int *pValue){
 
 int main (){
  
-    int var = 20; /* 实际变量的声明 */
- 
     // c语言基本数据类型
     int num = 10;
     char ch = 'a';
@@ -32,6 +30,9 @@ int main (){
     int numbers[5] = {1, 2, 3, 4, 5};
 
     //----1. *声明指针变量
+
+    int var = 20; /* 实际变量的声明 */
+    
     int *ip; /* 这里*是取值符，ip就是地址 */
  
     ip = &var; /*  &为取地址符 */
@@ -56,7 +57,7 @@ int main (){
     }
     // 释放内存
     free(array);
-
+    printf("\n");
 
     //----4、*通过引用传参
     int value = 10;
