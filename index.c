@@ -14,6 +14,13 @@ void updateValue(int *pValue){
     *pValue = 20;
 }
 
+//Object
+typedef struct  
+{
+    int id;
+    char name[50];
+}  Object;
+
 int main (){
  
     // c语言基本数据类型
@@ -64,6 +71,23 @@ int main (){
     updateValue(&value);
     printf("After: %d\n", value);
 
+
+    //动态的对象数组
+    Object* objects = (Object *)malloc(10 * sizeof(Object));
+    if(objects == NULL){
+        printf("内存不足，无法分配内存。\n");
+        //1是通用错误码
+        return 1;
+    }
+    //可以通过索引访问，像普通数组一样
+    for (int i = 0; i < 10; i++)
+    {
+        //c中.和->的区别
+        objects[i].id = i;
+        sprintf(objects[i].name, "对象 %d", i);
+        printf("%s 的 id 是 %d\n", objects[i].name, objects[i].id);
+    }
+    free(objects);
  
     return 0;
  
