@@ -1,6 +1,6 @@
 #include <stdlib.h>  // lib，包含了malloc和free函数
 #include <stdio.h>   // io是输出相关
-
+#include <pthread.h>
  
 /** 
  * 这里编译用的clang是xcode的，位置在/usr/bin/clang
@@ -20,6 +20,29 @@ typedef struct
     int id;
     char name[50];
 }  Object;
+
+//async-sync
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // 初始化互斥锁
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER; // 初始化条件变量
+int done = 0; // 定义一个全局变量
+
+void* async_func(void* arg){
+
+    printf("async init \n");
+    //----------上互斥锁-----------
+    pthread_mutex_lock(&mutex);
+
+    //上锁和解锁是为了保持在中间这个值被锁定
+    done = 1;
+    pthread_cond_signal(&cond); //发送信号，异步操作已完成
+    
+    //----------解锁互斥锁----------
+    pthread_mutex_unlock(&mutex);
+    
+    //最后返回值
+    return (void*)1;
+}
+
 
 int main (){
  
@@ -88,6 +111,22 @@ int main (){
         printf("%s 的 id 是 %d\n", objects[i].name, objects[i].id);
     }
     free(objects);
+
+    //async
+    pthread_t thread;
+    //创建一个新线程来执行异步任务
+    pthread_create(&thread, NULL, async_func, NULL); 
+    //上锁互斥锁
+    pthread_mutex_lock(&mutex);
+    while (done == 0) {
+        // 如果异步函数还没设置 "done" 为1, 则等待
+        pthread_cond_wait(&cond, &mutex); 
+    }
+    // 解锁互斥锁
+    pthread_mutex_unlock(&mutex); 
+    // 这里，异步操作已经转换为同步
+    printf("Now the async task is done and onwards!\n"); // 打印消息表示异步任务已完成
+
  
     return 0;
  
