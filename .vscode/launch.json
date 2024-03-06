@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(CMake)",
+            "type": "cmake",
+            "request": "launch",
+            "cmakeDebugType": "script",
+            "scriptPath": "/opt/homebrew/Cellar/cmake/3.28.3/bin/cmake",
+        }
+    ]
+}

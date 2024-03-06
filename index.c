@@ -1,6 +1,9 @@
 #include <stdlib.h>  // lib，包含了malloc和free函数
 #include <stdio.h>   // io是输出相关
 #include <pthread.h>
+#include<curl/curl.h> //引入三方crul
+#include "utils/utils.h" //引入自实现utils
+
  
 /** 
  * 这里编译用的clang是xcode的，位置在/usr/bin/clang
@@ -127,6 +130,44 @@ int main (){
     // 这里，异步操作已经转换为同步
     printf("Now the async task is done and onwards!\n"); // 打印消息表示异步任务已完成
 
+
+    // utils
+    print_message("---start---");
+
+
+    //curl
+    CURL * curl;
+    CURLcode res;
+
+    // 初始化curl库
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+
+    // 初始化一个curl指针，如果初始化成功，则返回一个非NULL指针，用于进行其他curl操作s
+    curl = curl_easy_init();
+
+
+    //判断是否初始化成功
+    if(curl){
+       
+        //设置要获取的curl地址,这里是一个开放api，获取一句名人名言
+        curl_easy_setopt(curl,CURLOPT_URL, "https://api.apiopen.top/api/sentences");
+        
+        //执行一个文件传输，由指针curl给出操作描述，
+        //此操作作为阻塞函数，执行成功返回CRULE_OK (0)
+        res = curl_easy_perform(curl);
+        printf("The result of curl_easy_perform is: %d\n", res); // Added line
+
+        //如果操作失败
+        if(res != CURLE_OK){
+            //todo, 做一些其他操作
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res)); // 如果操作失败，输出错误信息
+            curl_easy_cleanup(curl);   // 释放curl资源
+        }
+
+    }
+
+    //curl全局清理
+    curl_global_cleanup();
  
     return 0;
  
