@@ -1,5 +1,5 @@
 # c_test
-use of c 
+using of c 
 
 ## env 
 
