@@ -14,7 +14,7 @@
  */
 
 //传入引用，参数解引用，这样好能理解呀
-void updateValue(int *pValue){
+void updateValue(int* pValue){
     *pValue = 20;
 }
 
